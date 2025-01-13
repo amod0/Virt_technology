@@ -1,0 +1,70 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(120deg, #f2994a, #8e44ad);
+}
+
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+}
+
+.card{
+    position: relative; /* Make cards stackable */
+    flex-shrink: 0; /* Prevents the card from shrinking */
+    width: 300px;
+    height: 250px;
+    margin: 0 auto; /* Centers the card */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0.3s ease;
+    z-index: 1; /* Default stack level */
+}
+
+.card.active {
+    transform: scale(1.5); /* Scale the card */
+    z-index: 10; /* Bring the card to the top */
+    box-shadow: 0 16px 64px rgba(0, 0, 0, 0.3); 
+    background-color: rgba(255, 255, 255, 0.2); 
+}
+
+.circle {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    top: 125px;
+    left: 14px;
+  }
+.box {  
+    position: absolute;
+    height: 15px;
+    width: 75%;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    top: 130px;
+    left: 20%;
+}
+
+.box.big {
+    height: 100px;
+    width: 89%;
+    top: 13px;
+    left: 5%;
+}
+
+.box.short{
+    height: 10px;
+    width: 60%;
+    top: 150px;
+}
