@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TrashIcon from "../icons/trashIcon";
+import TrashIcon from "../icons/TrashIcon";
 import { Id, Task } from "../types";
 
 interface Props {
