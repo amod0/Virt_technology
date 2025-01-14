@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let startY;
   let scrollStart;
 
-  // Mouse down event to start grabbing
   container.addEventListener("mousedown", (e) => {
     isGrabbing = true;
     startY = e.pageY;
@@ -14,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     container.style.cursor = "grabbing";
   });
 
-  // Mouse move event to handle dragging
   container.addEventListener("mousemove", (e) => {
     if (!isGrabbing) return;
     e.preventDefault();
@@ -23,14 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
     container.scrollTop = scrollStart + distance;
   });
 
-  // Mouse up event to snap to the closest card
   container.addEventListener("mouseup", () => {
     isGrabbing = false;
     container.style.cursor = "grab";
     snapToCard();
   });
 
-  // Mouse leave event to stop grabbing
   container.addEventListener("mouseleave", () => {
     isGrabbing = false;
     container.style.cursor = "grab";
@@ -40,11 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Scroll event to detect the centered card
   container.addEventListener("scroll", debounce(updateActiveCard, 50));
 
-  // Function to snap to the closest card
   function snapToCard() {
     const scrollPosition = container.scrollTop;
     const closestCardIndex = Math.round(scrollPosition / cardHeight); // Find the closest card index
-    const targetScrollTop = closestCardIndex * cardHeight;
+    const targetScrollTop = closestCardIndex * cardHeight; // Calculate the scroll position to snap to the closest card
 
     container.scrollTo({
       top: targetScrollTop,
@@ -54,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateActiveCard();
   }
 
-  // Function to update the active (centered) card
   function updateActiveCard() {
     const containerMiddle = container.offsetHeight / 2;
 
@@ -64,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (Math.abs(cardMiddle - containerMiddle) < cardHeight / 2) {
         card.classList.add("active"); // Add active class for the centered card
       } else {
-        card.classList.remove("active"); // Remove active class for non-centered cards
+        card.classList.remove("active");
       }
     });
   }
