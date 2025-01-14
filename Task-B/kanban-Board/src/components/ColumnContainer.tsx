@@ -1,8 +1,8 @@
-import { useSortable } from "@dnd-kit/sortable";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import TrashIcon from "../icons/TrashIcon";
 import { Column, Id, Task } from "../types";
 import { CSS } from "@dnd-kit/utilities";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import PlusIcon from "../icons/PlusIcon";
 import TaskCard from "./TaskCard";
 
@@ -29,6 +29,10 @@ function ColumnContainer(props: Props) {
   } = props;
 
   const [editMode, setEditMode] = useState(false);
+
+  const taskIds = useMemo(() => {
+    return tasks.map((task) => task.id);
+  }, [tasks]);
 
   const {
     setNodeRef,
@@ -57,16 +61,8 @@ function ColumnContainer(props: Props) {
         ref={setNodeRef}
         style={style}
         className="
-  bg-columnBackgroundColor
-  opacity-40
-  border-2
-  border-rose-500
-    w-[350px]
-    h-[500px]
-    max-h-[500px]
-    rounded-md
-    flex
-    flex-col
+  bg-columnBackgroundColor opacity-50 border-2 border-rose-500
+    w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col
     "
       ></div>
     );
@@ -165,15 +161,20 @@ function ColumnContainer(props: Props) {
       </div>
 
       {/* column task Container */}
-      <div className="felx flex-grow flex-col gap-4 p-2 overflow-y-auto overflow-x-hidden">
-        {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            deleteTask={deleteTask}
-            updateTask={updateTask}
-          />
-        ))}
+      <div
+        className="felx flex-grow flex-col gap-4 p-2 
+      overflow-y-auto overflow-x-hidden"
+      >
+        <SortableContext items={taskIds}>
+          {tasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
+              deleteTask={deleteTask}
+              updateTask={updateTask}
+            />
+          ))}
+        </SortableContext>
       </div>
       {/* Column footer */}
       <button
